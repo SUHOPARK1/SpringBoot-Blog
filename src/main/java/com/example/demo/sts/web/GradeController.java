@@ -1,4 +1,7 @@
 package com.example.demo.sts.web;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.cmm.enm.Messenger;
@@ -19,6 +22,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
+import java.util.Optional;
+
+import static com.example.demo.cmm.utl.Util.integer;
 
 @RequestMapping("/grades")
 @RestController
@@ -36,22 +42,35 @@ public class GradeController {
     @Autowired TeacherService teacherService;
     @Autowired ManagerService managerService;
     @Autowired Pagination page;
-    
-    @PostMapping("")
-    public Messenger register(@RequestBody Grade g){
-        gradeRepository.save(g);
+
+    @PostMapping("/save")
+    public Messenger save(@RequestBody Grade grade) {
+        gradeRepository.save(grade);
         return Messenger.SUCCESS;
     }
-   
-    @GetMapping("/register")
-    public Messenger registerMany(){
-    	var map = new HashMap<String, String>();
-    	logger.info("Grade List Register ...");
-    	gradeService.insertMany();
-    	map.put("TOTAL_COUNT", Sql.TOTAL_COUNT.toString() + Table.GRADES);	
-        return gradeRepository.count() !=0 ?Messenger.SUCCESS:Messenger.FAILURE;
+    @GetMapping("/count")
+    public long count() {
+        return gradeRepository.count();
     }
-    
+    @GetMapping("/existsById/{id}")
+    public boolean existsById(@PathVariable String id) {
+        return gradeRepository.existsById(integer.apply(id));
+    }
+    @GetMapping("/findById/{id}")
+    public Optional<Grade > findById(@PathVariable String id) {
+        return gradeRepository.findById(integer.apply(id));
+    }
+    /*
+    @PostMapping("/findAll")
+    public Page<Grade> findAll(@RequestBody Pageable pageable) {
+        return gradeRepository.findAll(pageable);
+    } */
+    @DeleteMapping("/delete")
+    public Messenger delete(@RequestBody Grade  grade){
+        gradeRepository.delete(grade);
+        return Messenger.SUCCESS;
+    }
+
     
 	
 }
