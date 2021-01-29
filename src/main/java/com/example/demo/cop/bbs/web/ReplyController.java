@@ -3,6 +3,7 @@ package com.example.demo.cop.bbs.web;
 import com.example.demo.cmm.enm.Messenger;
 import com.example.demo.cop.bbs.service.Reply;
 import com.example.demo.cop.bbs.service.ReplyRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,9 +16,9 @@ import static com.example.demo.cmm.utl.Util.integer;
 @RestController
 @CrossOrigin(origins="*")
 @RequestMapping("/replies")
+@RequiredArgsConstructor
 public class ReplyController {
-    @Autowired
-    ReplyRepository replyRepository;
+    private final ReplyRepository replyRepository;
     @PostMapping("/save")
     public Messenger save(@RequestBody Reply reply) {
         replyRepository.save(reply);

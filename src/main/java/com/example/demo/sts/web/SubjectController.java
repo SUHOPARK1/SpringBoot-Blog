@@ -3,6 +3,7 @@ package com.example.demo.sts.web;
 import java.util.Arrays;
 
 import com.example.demo.sym.service.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -32,22 +33,19 @@ import static com.example.demo.cmm.utl.Util.integer;
 @RequestMapping("/subjects")
 @RestController
 @CrossOrigin(origins="*")
+@RequiredArgsConstructor
 public class SubjectController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired StudentService studentService;
-    @Autowired GradeService gradeService;
-    @Autowired
-    StudentRepository studentRepository;
-    @Autowired
-    GradeRepository gradeRepository;
-    @Autowired
-    TeacherRepository teacherRepository;
-    @Autowired
-    SubjectRepository subjectRepository;
-    @Autowired SubjectService subjectService;
-    @Autowired TeacherService teacherService;
-    @Autowired Pagination page;
-    @Autowired Box<String> bx;
+    private final StudentService studentService;
+    private final GradeService gradeService;
+    private final StudentRepository studentRepository;
+    private final GradeRepository gradeRepository;
+    private final TeacherRepository teacherRepository;
+    private final SubjectRepository subjectRepository;
+    private final SubjectService subjectService;
+    private final TeacherService teacherService;
+    private final Pagination page;
+    private final Box<String> bx;
 
 
     @PostMapping("/save")

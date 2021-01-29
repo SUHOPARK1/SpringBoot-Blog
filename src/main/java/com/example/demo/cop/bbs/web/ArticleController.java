@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.*;
 import com.example.demo.cmm.enm.Messenger;
 import com.example.demo.cop.bbs.service.Article;
 import com.example.demo.cop.bbs.service.ArticleRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,9 +18,10 @@ import java.util.Optional;
 @RestController
 @CrossOrigin(origins="*")
 @RequestMapping("/articles")
+@RequiredArgsConstructor
 public class ArticleController {
-    @Autowired
-    ArticleRepository articleRepository;
+    private final ArticleRepository articleRepository;
+
     @PostMapping("/save")
     public Messenger save(@RequestBody Article  article) {
         articleRepository.save(article);

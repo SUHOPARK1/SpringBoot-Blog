@@ -1,5 +1,6 @@
 package com.example.demo.sts.web;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -29,19 +30,18 @@ import static com.example.demo.cmm.utl.Util.integer;
 @RequestMapping("/grades")
 @RestController
 @CrossOrigin(origins="*")
+@RequiredArgsConstructor
 public class GradeController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired StudentService studentService;
-    @Autowired GradeService gradeService;
-    @Autowired
-    StudentRepository studentRepository;
-    @Autowired
-    GradeRepository gradeRepository;
-    @Autowired SubjectService subjectService;
-    @Autowired TeacherService teacherService;
-    @Autowired ManagerService managerService;
-    @Autowired Pagination page;
+    private final StudentService studentService;
+    private final GradeService gradeService;
+    private final StudentRepository studentRepository;
+    private final GradeRepository gradeRepository;
+    private final SubjectService subjectService;
+    private final TeacherService teacherService;
+    private final ManagerService managerService;
+    private final Pagination page;
 
     @PostMapping("/save")
     public Messenger save(@RequestBody Grade grade) {

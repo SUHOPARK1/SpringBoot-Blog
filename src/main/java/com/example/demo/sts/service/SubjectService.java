@@ -7,19 +7,23 @@ import com.example.demo.sym.service.TeacherRepository;
 
 import java.util.Arrays;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+interface ISubjectService{
+
+}
+
 @Service
+@RequiredArgsConstructor
 public class SubjectService {
-	@Autowired
-	SubjectRepository subjectRepository;
-	@Autowired
-	TeacherRepository teacherRepository;
-	@Autowired DummyGenerator dummy;
-	@Autowired Vector<Subject> vcSubject;
-	@Autowired Vector<GradeVo> vcGradeVo;
-	@Autowired Box<Vector<GradeVo>> bx;
+	private final SubjectRepository subjectRepository;
+	private final TeacherRepository teacherRepository;
+	private final DummyGenerator dummy;
+	private final Vector<Subject> vcSubject;
+	private final Vector<GradeVo> vcGradeVo;
+	private final Box<Vector<GradeVo>> bx;
 	
 	public void insertMany(int count) {
 		

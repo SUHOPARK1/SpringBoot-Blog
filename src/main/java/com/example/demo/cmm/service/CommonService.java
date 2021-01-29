@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.cmm.enm.Sql;
 import com.example.demo.cmm.utl.Box;
 import com.example.demo.cmm.utl.Vector;
-
+interface ICommonService{}
 @Service
-public class CommonService {
+public class CommonService implements ICommonService{
     @Autowired Box<String> bx;
     @Autowired Vector<String> vc;
 

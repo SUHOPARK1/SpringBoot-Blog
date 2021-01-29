@@ -4,6 +4,7 @@ import java.util.Optional;
 
 
 import com.example.demo.sym.service.*;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +21,14 @@ import static com.example.demo.cmm.utl.Util.integer;
 @RestController
 @RequestMapping("/teachers")
 @CrossOrigin(origins="*")
+@RequiredArgsConstructor
 public class TeacherController {
 private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    
-    @Autowired TeacherService teacherService;
-    @Autowired
-    TeacherRepository teacherRepository;
-    @Autowired
-    SubjectRepository subjectRepository;
-    @Autowired Box<String> bx;
+
+    private final TeacherService teacherService;
+    private final TeacherRepository teacherRepository;
+    private final SubjectRepository subjectRepository;
+    private final Box<String> bx;
 
 
     @PostMapping("/save")
@@ -46,6 +46,7 @@ private final Logger logger = LoggerFactory.getLogger(this.getClass());
     }
     @GetMapping("/findById/{id}")
     public Optional<Teacher> findById(@PathVariable String id) {
+
         return teacherRepository.findById(integer.apply(id));
     }
     @PostMapping("/findAll")

@@ -34,7 +34,13 @@ public class Util {
 			return Optional.empty();
 		}
 	}
+	public static Optional<String> optLongToString(long l){
+		try{
+			return Optional.of(String.valueOf(l));
+		}catch(Exception e){
+			return Optional.empty();
+		}
+	}
 	
-
-
+	
 }
