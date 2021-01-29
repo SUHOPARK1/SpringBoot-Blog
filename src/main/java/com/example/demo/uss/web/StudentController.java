@@ -12,10 +12,10 @@ import com.example.demo.sym.service.TeacherService;
 import com.example.demo.uss.service.Student;
 import com.example.demo.uss.service.StudentRepository;
 import com.example.demo.uss.service.StudentService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,23 +32,18 @@ import static com.example.demo.cmm.utl.Util.string;
 @RestController
 @RequestMapping("/students")
 @CrossOrigin(origins="*")
-@ConfigurationProperties(prefix="student.list")
+@RequiredArgsConstructor
 public class StudentController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired StudentService studentService;
-    @Autowired GradeService gradeService;
-    @Autowired
-    StudentRepository studentRepository;
-    @Autowired SubjectService subjectService;
-    @Autowired TeacherService teacherService;
-    @Autowired ManagerService managerService;
-    @Autowired Pagination page;
-    @Autowired Box<String> bx;
-
-    private int pageSize = 20;
-    public void setPageSize(int pageSize){
-        this.pageSize = pageSize;
-    }
+    private final GradeService gradeService;
+    private final StudentService studentService;
+    private final StudentRepository studentRepository;
+    private final SubjectService subjectService;
+    private final TeacherService teacherService;
+    private final ManagerService managerService;
+    private final Student student;
+    private final Pagination page;
+    private final Box<String> bx;
 
     @PostMapping("/save")
     public String save(@RequestBody Student student) {
@@ -59,7 +54,7 @@ public class StudentController {
     public long count() {
         return studentRepository.count();
     }
-    @GetMapping("/existsById/{id}")
+     @GetMapping("/existsById/{id}")
     public boolean existsById(@PathVariable String id) {
         return studentRepository.existsById(integer.apply(id));
     }
@@ -69,7 +64,7 @@ public class StudentController {
     }
     @GetMapping("/findAll/{pageNum}")
     public Page<Student> findAll(@PathVariable String pageNum) {
-        Pageable pageable = PageRequest.of(integer.apply(pageNum), pageSize);
+        Pageable pageable = PageRequest.of(integer.apply(pageNum) -1, student.getPageSize());
         return studentRepository.findAll(pageable);
     }
     @DeleteMapping("/delete")
@@ -79,7 +74,7 @@ public class StudentController {
     }
     @GetMapping("/findByStudentsOrderByStuNumDesc/{pageNum}")
     public Page<Student> findByStudentsOrderByStuNumDesc(@PathVariable String pageNum){
-        Pageable pageable = PageRequest.of(integer.apply(pageNum), pageSize);
+        Pageable pageable = PageRequest.of(integer.apply(pageNum) -1, student.getPageSize());
         return studentRepository.findByStudentsOrderByStuNumDesc(pageable);
     }
 
