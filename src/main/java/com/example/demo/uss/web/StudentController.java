@@ -118,7 +118,14 @@ public class StudentController {
         return Messenger.SUCCESS;
     }
 
-    
+    @PatchMapping("/patch/{id}")
+    public Messenger patch(@PathVariable String id,
+                           @RequestBody Student student){
+        Student s = studentRepository.findById(integer.apply(id)).orElse(student);
+        return Messenger.SUCCESS;
+    }
+
+
     @GetMapping("/insert-many/{count}")
     public String insertMany(@PathVariable String count) {
     	logger.info(String.format("Insert %s Students ...",count));
